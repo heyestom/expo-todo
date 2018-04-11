@@ -8,6 +8,14 @@
 (def ReactNative (js/require "react-native"))
 (def app-registry (.-AppRegistry ReactNative))
 
+;; react-navigation
+(def ReactNavigation (js/require "react-navigation"))
+
 (defn init []
   (dispatch-sync [:initialize-db])
-  (.registerComponent app-registry "main" #(r/reactify-component home/home-screen)))
+  (.registerComponent app-registry "main" #(r/reactify-component home/app-root)))
+
+
+;;(defn init []
+;;  (dispatch-sync [:initialize-db])
+;;  (.registerComponent app-registry "main" #(r/reactify-component home/home-screen)))

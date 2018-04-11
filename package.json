@@ -6,9 +6,10 @@
   "private": true,
   "main": "main.js",
   "dependencies": {
+    "create-react-class": "15.6.3",
     "expo": "^25.0.0",
     "react": "16.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
-    "create-react-class": "15.6.3"
+    "react-navigation": "^1.5.11"
   }
 }

@@ -1,0 +1,1 @@
+exp start -c --ios

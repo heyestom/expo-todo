@@ -34,7 +34,7 @@
     app-db))
 
 (reg-event-db
-  :set-greeting
-  [validate-spec]
-  (fn [db [_ value]]
-    (assoc db :greeting value)))
+ :set-greeting
+ [validate-spec]
+ (fn [db [_ value]]
+   (assoc db :greeting value)))
