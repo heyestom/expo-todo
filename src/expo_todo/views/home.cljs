@@ -1,6 +1,8 @@
 (ns expo-todo.views.home
   (:require [cljs-react-navigation.re-frame :as nav]
             [expo-todo.views.react-nateive-components :as rn]
+            [expo-todo.views.new-todo :as new-todo]
+            [reagent.core :as r]
             [re-frame.core :refer [subscribe]]))
 
 (defn todo-list-item [navigate item]
@@ -26,22 +28,28 @@
                                :padding-top 20}}
        (doall (map (partial todo-list-item navigate) @todos))])))
 
+(defn home-navigation-options [{:keys [navigation] :as props}]
+  (let [{:keys [navigate goBack state]} navigation
+        {:keys [params]} state]
+    {:headerTitle "Your ToDos"
+     :headerRight (fn []
+                    [rn/touchable-highlight
+                     {:onPress #(navigate (name new-todo/screen-name))}
+                     [rn/text {} "Add"]
+                    ;; [:> rn/Ionicons {:color "#ff0033" :name "ios-add"}]
+                     #_[:> rn/Entypo {:size 10 :color "#ff0033" :name "add-to-list"}]])}))
+
 ;; TODO move to own name-space
 (defn todo-detail-navigation-options [{:keys [navigation] :as props}]
   (let [{:keys [navigate goBack state]} navigation
         {:keys [params]} state]
-    {:headerTitle (:todo-name params)
-     ;; :headerRight (fn []
-     ;;     [rn/button {:title   "Save"
-     ;;                 :onPress #(do (dispatch [:update-todo])
-     ;;                               (goBack))}])
-}))
+    {:headerTitle (:todo-name params)}))
 
 (defn todo-detail [props]
   (fn [{:keys [screenProps navigation] :as props}]
     (let [{:keys [navigate goBack state]} navigation
           {:keys [params]} state]
-      [rn/view {:style {:flex           1
+      [rn/view {:style {:flex         1
                         :alignItems     "center"
                         :justifyContent "center"}}
        [rn/text {:style {:color "black"
@@ -54,9 +62,10 @@
 ;; TODO move routing logic into own name-space 
 (def HomeStack
   (nav/stack-navigator
-   {:HomeScreen {:screen (nav/stack-screen home-screen {:title "Your To-Dos"})}
+   {:HomeScreen {:screen (nav/stack-screen home-screen home-navigation-options)}
+    new-todo/screen-name {:screen (nav/stack-screen new-todo/new-todo-screen new-todo/naviagtion-options)}
     :TodoDetail {:screen (nav/stack-screen todo-detail todo-detail-navigation-options)}}))
 
 (defn app-root []
-  (fn []
-    [:> HomeStack {}]))
+  (r/create-class
+   {:reagent-render (fn [] [:> HomeStack {}])}))

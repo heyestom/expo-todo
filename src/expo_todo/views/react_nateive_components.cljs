@@ -8,10 +8,14 @@
 (def button (r/adapt-react-class (.-Button ReactNative)))
 (def image (r/adapt-react-class (.-Image ReactNative)))
 
-(def check-box (r/adapt-react-class (.-CheckBox ReactNative)))
+(def text-input (r/adapt-react-class (.-TextInput ReactNative)))
 
 (def flat-list (r/adapt-react-class (.-FlatList ReactNative)))
 (def scroll-view (r/adapt-react-class (.-ScrollView ReactNative)))
 (def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
+
+;; currently causing issues with unrecognised font family 
+(defonce Ionicons (.-Ionicons (js/require "@expo/vector-icons")))
+(defonce Entypo (.-Entypo (js/require "@expo/vector-icons")))
 
 (def alert (.-Alert ReactNative))

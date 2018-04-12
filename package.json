@@ -6,6 +6,7 @@
   "private": true,
   "main": "main.js",
   "dependencies": {
+    "@expo/vector-icons": "^6.1.0",
     "create-react-class": "15.6.3",
     "expo": "^25.0.0",
     "react": "16.2.0",

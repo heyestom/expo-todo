@@ -5,6 +5,7 @@
               [expo-todo.handlers]
               [expo-todo.subs]))
 
+(def Expo (js/require "expo"))
 (def ReactNative (js/require "react-native"))
 (def app-registry (.-AppRegistry ReactNative))
 
@@ -12,8 +13,9 @@
 (def ReactNavigation (js/require "react-navigation"))
 
 (defn init []
+  (aset js/console "disableYellowBox" true)
   (dispatch-sync [:initialize-db])
-  (.registerComponent app-registry "main" #(r/reactify-component home/app-root)))
+  (.registerRootComponent Expo (r/reactify-component home/app-root)))
 
 
 ;;(defn init []
