@@ -13,10 +13,14 @@
                         :background-color "#333"}}
        [rn/text-input {:style {:height 40
                                :background-color "#ddd"}
-                       :placeholder "New ToDo Name"}]
+                       :placeholder "New ToDo Name"
+                       :onChangeText (fn [text] (dispatch [:update-todo-name text]))
+                       }]
        [rn/button {:style {:fontSize 16}
                    :title "Save Todo!"
-                   :onPress #(goBack)}]
+                   :onPress (fn []
+                              (dispatch [:add-todo])
+                              (goBack))}]
        ])))
 
 (def screen-name :NewTodo)

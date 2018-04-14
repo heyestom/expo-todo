@@ -1,6 +1,6 @@
 (ns expo-todo.handlers
   (:require
-    [re-frame.core :refer [reg-event-db ->interceptor]]
+    [re-frame.core :refer [reg-event-db ->interceptor dispatch]]
     [clojure.spec.alpha :as s]
     [expo-todo.db :as db :refer [app-db]]))
 
@@ -32,6 +32,28 @@
   [validate-spec]
   (fn [_ _]
     app-db))
+
+
+(reg-event-db
+ :add-todo
+ [validate-spec]
+ (fn [db [_ _]]
+   (let [new-todo {:name (:new-todo-name db)
+                   :key (rand-int 1000)}]
+     (dispatch [:clear-new-todo-state])
+     (assoc db :todos (conj (:todos db) new-todo)))))
+
+(reg-event-db
+ :clear-new-todo-state
+ [validate-spec]
+ (fn [db [_ value]]
+   (assoc db :new-todo-name "")))
+
+(reg-event-db
+ :update-todo-name
+ [validate-spec]
+ (fn [db [_ value]]
+   (assoc db :new-todo-name value)))
 
 (reg-event-db
  :set-greeting
