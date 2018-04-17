@@ -14,8 +14,14 @@
 (def scroll-view (r/adapt-react-class (.-ScrollView ReactNative)))
 (def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
 
-;; currently causing issues with unrecognised font family 
-(defonce Ionicons (.-Ionicons (js/require "@expo/vector-icons")))
-(defonce Entypo (.-Entypo (js/require "@expo/vector-icons")))
+(def Expo (js/require "expo"))
+(def Font (aget Expo "Font"))
+(def Asset (aget Expo "Asset"))
+
+(def Ionicons (js/require "@expo/vector-icons/Ionicons"))
+(def ion-icon (r/adapt-react-class (aget Ionicons "default")))
+
+(def FontAwesome (js/require "@expo/vector-icons/FontAwesome"))
+(def fontawesome-icon (r/adapt-react-class (aget FontAwesome "default")))
 
 (def alert (.-Alert ReactNative))

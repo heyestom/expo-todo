@@ -14,6 +14,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+     "packagerOpts": {
+        "assetExts": ["ttf", "otf"]
+    },
+    "assetBundlePatterns": [
+        "assets/fonts/**",
+        "assets/images/**",
+        "assets/icons/**"
+    ],
     "ios": {
       "supportsTablet": true
     }

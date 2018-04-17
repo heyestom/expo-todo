@@ -35,9 +35,9 @@
      :headerRight (fn []
                     [rn/touchable-highlight
                      {:onPress #(navigate (name new-todo/screen-name))}
-                     [rn/text {} "Add"]
-                    ;; [:> rn/Ionicons {:color "#ff0033" :name "ios-add"}]
-                     #_[:> rn/Entypo {:size 10 :color "#ff0033" :name "add-to-list"}]])}))
+                     [rn/ion-icon {:name "md-add-circle"
+                                   :size 25
+                                   :style {:margin 10}}]])}))
 
 ;; TODO move to own name-space
 (defn todo-detail-navigation-options [{:keys [navigation] :as props}]

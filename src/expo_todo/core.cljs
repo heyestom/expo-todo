@@ -13,11 +13,5 @@
 (def ReactNavigation (js/require "react-navigation"))
 
 (defn init []
-  (aset js/console "disableYellowBox" true)
   (dispatch-sync [:initialize-db])
   (.registerRootComponent Expo (r/reactify-component home/app-root)))
-
-
-;;(defn init []
-;;  (dispatch-sync [:initialize-db])
-;;  (.registerComponent app-registry "main" #(r/reactify-component home/home-screen)))
