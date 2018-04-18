@@ -1,7 +1,7 @@
 (ns expo-todo.core
     (:require [reagent.core :as r :refer [atom]]
               [re-frame.core :refer [subscribe dispatch dispatch-sync]]
-              [expo-todo.views.home :as home]
+              [expo-todo.nav-root :as nav-root]
               [expo-todo.handlers]
               [expo-todo.subs]))
 
@@ -14,4 +14,4 @@
 
 (defn init []
   (dispatch-sync [:initialize-db])
-  (.registerRootComponent Expo (r/reactify-component home/app-root)))
+  (.registerRootComponent Expo (r/reactify-component nav-root/app-root)))

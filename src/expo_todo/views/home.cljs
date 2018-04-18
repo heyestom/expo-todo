@@ -1,10 +1,7 @@
 (ns expo-todo.views.home
-  (:require [cljs-react-navigation.re-frame :as nav]
-            [expo-todo.views.new-todo :as new-todo]
+  (:require [expo-todo.views.new-todo :as new-todo]
             [expo-todo.views.react-nateive-components :as rn]
-            [expo-todo.views.todo-detail :as todo-detail]
-            [re-frame.core :refer [subscribe]]
-            [reagent.core :as r]))
+            [re-frame.core :refer [subscribe]]))
 
 (defn todo-list-item [navigate item]
   (let [name (:name item)]
@@ -40,13 +37,4 @@
                                    :size 25
                                    :style {:margin 10}}]])}))
 
-;; TODO move routing logic into own name-space 
-(def HomeStack
-  (nav/stack-navigator
-   {:HomeScreen {:screen (nav/stack-screen home-screen home-navigation-options)}
-    new-todo/screen-name {:screen (nav/stack-screen new-todo/new-todo-screen new-todo/naviagtion-options)}
-    todo-detail/screen-name  {:screen (nav/stack-screen todo-detail/todo-detail-screen todo-detail/todo-detail-navigation-options)}}))
-
-(defn app-root []
-  (r/create-class
-   {:reagent-render (fn [] [:> HomeStack {}])}))
+(def screen-name :HomeScreen)
