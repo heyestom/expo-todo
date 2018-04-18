@@ -1,9 +1,10 @@
 (ns expo-todo.views.home
   (:require [cljs-react-navigation.re-frame :as nav]
-            [expo-todo.views.react-nateive-components :as rn]
             [expo-todo.views.new-todo :as new-todo]
-            [reagent.core :as r]
-            [re-frame.core :refer [subscribe]]))
+            [expo-todo.views.react-nateive-components :as rn]
+            [expo-todo.views.todo-detail :as todo-detail]
+            [re-frame.core :refer [subscribe]]
+            [reagent.core :as r]))
 
 (defn todo-list-item [navigate item]
   (let [name (:name item)]
@@ -39,32 +40,12 @@
                                    :size 25
                                    :style {:margin 10}}]])}))
 
-;; TODO move to own name-space
-(defn todo-detail-navigation-options [{:keys [navigation] :as props}]
-  (let [{:keys [navigate goBack state]} navigation
-        {:keys [params]} state]
-    {:headerTitle (:todo-name params)}))
-
-(defn todo-detail [props]
-  (fn [{:keys [screenProps navigation] :as props}]
-    (let [{:keys [navigate goBack state]} navigation
-          {:keys [params]} state]
-      [rn/view {:style {:flex         1
-                        :alignItems     "center"
-                        :justifyContent "center"}}
-       [rn/text {:style {:color "black"
-                         :font-size 25
-                         :text-align "left"}} (:todo-name params)]
-       [rn/button {:style   {:fontSize 17}
-                   :onPress #(goBack)
-                   :title   "Go Back!"}]])))
-
 ;; TODO move routing logic into own name-space 
 (def HomeStack
   (nav/stack-navigator
    {:HomeScreen {:screen (nav/stack-screen home-screen home-navigation-options)}
     new-todo/screen-name {:screen (nav/stack-screen new-todo/new-todo-screen new-todo/naviagtion-options)}
-    :TodoDetail {:screen (nav/stack-screen todo-detail todo-detail-navigation-options)}}))
+    todo-detail/screen-name  {:screen (nav/stack-screen todo-detail/todo-detail-screen todo-detail/todo-detail-navigation-options)}}))
 
 (defn app-root []
   (r/create-class
