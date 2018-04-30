@@ -1,6 +1,6 @@
 (ns expo-todo.views.new-todo
-  (:require [re-frame.core :refer [dispatch subscribe]]
-            [expo-todo.views.react-nateive-components :as rn]))
+  (:require [expo-todo.views.react-nateive-components :as rn]
+            [re-frame.core :refer [dispatch]]))
 
 (def naviagtion-options
   {:title "Add ToDo"})
@@ -14,13 +14,11 @@
        [rn/text-input {:style {:height 40
                                :background-color "#ddd"}
                        :placeholder "New ToDo Name"
-                       :onChangeText (fn [text] (dispatch [:update-todo-name text]))
-                       }]
+                       :onChangeText (fn [text] (dispatch [:update-todo-name text]))}]
        [rn/button {:style {:fontSize 16}
                    :title "Save Todo!"
                    :onPress (fn []
                               (dispatch [:add-todo])
-                              (goBack))}]
-       ])))
+                              (goBack))}]])))
 
 (def screen-name :NewTodo)

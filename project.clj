@@ -5,6 +5,7 @@
                       :url  "http://www.eclipse.org/legal/epl-v10.html"}
             :jvm-opts ["--add-modules" "java.xml.bind"]
             :dependencies [[org.clojure/clojure "1.9.0"]
+                           [com.andrewmcveigh/cljs-time "0.5.2"]
                            [org.clojure/clojurescript "1.10.126"]
                            [reagent "0.7.0" :exclusions [cljsjs/react cljsjs/react-dom cljsjs/react-dom-server cljsjs/create-react-class]]
                            [re-frame "0.10.2"]

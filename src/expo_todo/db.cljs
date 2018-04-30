@@ -1,24 +1,44 @@
 (ns expo-todo.db
-  (:require [clojure.spec.alpha :as s]))
+  (:require [cljs-time.core :as cljs-time]
+            [clojure.spec.alpha :as s]))
 
 ;; spec of app-db
 (s/def ::greeting string?)
 
-(s/def ::name string?)
-(s/def ::key some?)
+(s/def ::todo-name string?)
+(s/def ::created-date cljs-time/date?)
+(s/def ::compleated? boolean?)
+(s/def ::priority (s/int-in 1 10))
 
-(s/def ::todo (s/keys :req-un [::name ::key]))
-(s/def ::todos (s/every ::todo))
+(s/def ::todo-item (s/keys :req-un [::todo-name
+                                    ::created-date
+                                    ::compleated?
+                                    ::priority]))
+
+(s/def ::todo-list (s/coll-of ::todo-item))
 
 (s/def ::app-db
   (s/keys :req-un [::greeting
-                   ::todos]))
+                   ::todo-list]))
 
 ;; initial state of app-db
-(def app-db {:todos [{:name "Go Shopping" :key "one"}
-                     {:name "Make Awesome App" :key "two"}
-                     {:name "Add Amazing sounds" :key "three"}
-                     {:name "Fill in Timesheets" :key "four"}]
+(def app-db {:todo-list [{:todo-name "Go Shopping"
+                          :created-date (cljs-time/date-time 2018 04 01)
+                          :compleated? false
+                          :priority 2}
+                         {:todo-name "Make Awesome App"
+                          :created-date (cljs-time/date-time 2018 03 02)
+                          :compleated? false
+                          :priority 2}
+                         {:todo-name "Add Amazing sounds"
+                          :created-date (cljs-time/date-time 2018 04 20)
+                          :compleated? false
+                          :priority 2}
+                         {:todo-name "Fill in Time-sheets"
+                          :created-date (cljs-time/date-time 2018 04 05)
+                          :compleated? false
+                          :priority 2}]
              :greeting "Hello Clojurescript in Expo!"})
 
 (s/explain-str ::app-db app-db)
+(s/valid? ::app-db app-db)

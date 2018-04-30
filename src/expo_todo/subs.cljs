@@ -7,6 +7,6 @@
    (:greeting db)))
 
 (reg-sub
- :get-todos
+ :get-todo-list
  (fn [db _]
-   (:todos db)))
+   (:todo-list db)))
