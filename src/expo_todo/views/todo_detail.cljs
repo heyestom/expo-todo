@@ -1,6 +1,7 @@
 (ns expo-todo.views.todo-detail
   (:require [cljs-time.format :as time-format]
-            [expo-todo.views.react-nateive-components :as rn]))
+            [expo-todo.views.react-nateive-components :as rn]
+            [re-frame.core :refer [dispatch]]))
 
 (defn todo-detail-navigation-options [{:keys [navigation] :as props}]
   (let [{:keys [navigate goBack state]} navigation
@@ -45,11 +46,12 @@
                      :text-align "left"}}
     (str "Priority: " (priority-num->string priority))]])
 
-(defn bottom-button [goBack colour]
+(defn bottom-button [goBack dispatch-fn colour]
   [rn/view {:flex 1
             :justifyContent "center"
             :style {:padding 5}}
-   [rn/touchable-highlight {:onPress #(goBack)
+   [rn/touchable-highlight {:onPress #(do (dispatch-fn)
+                                          (goBack))
                             :title   "Go Back!"
                             :style   {:background-color colour}}
     [rn/ion-icon {:name "md-add-circle"
@@ -76,7 +78,7 @@
 
        [rn/view {:style {:flex-direction "row"
                          :flex 1}}
-        [bottom-button goBack dismiss-red]
-        [bottom-button goBack success-green]]])))
+        [bottom-button goBack #(dispatch [:delete-todo params]) dismiss-red]
+        [bottom-button goBack #(prn "GREEN") success-green]]])))
 
 (def screen-name :TodoDetail)

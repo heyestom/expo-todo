@@ -29,15 +29,15 @@
                          {:todo-name "Make Awesome App"
                           :created-date (cljs-time/date-time 2018 03 02)
                           :compleated? false
-                          :priority 2}
+                          :priority 4}
                          {:todo-name "Add Amazing sounds"
                           :created-date (cljs-time/date-time 2018 04 20)
                           :compleated? false
-                          :priority 2}
+                          :priority 6}
                          {:todo-name "Fill in Time-sheets"
                           :created-date (cljs-time/date-time 2018 04 05)
                           :compleated? false
-                          :priority 2}]
+                          :priority 1}]
              :greeting "Hello Clojurescript in Expo!"})
 
 (s/explain-str ::app-db app-db)

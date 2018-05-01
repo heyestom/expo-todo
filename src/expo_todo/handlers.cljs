@@ -57,6 +57,14 @@
    (assoc db :new-todo-name value)))
 
 (reg-event-db
+ :delete-todo
+ [validate-spec]
+ (fn [db [_ value]]
+   (->> (:todo-list db)
+        (remove #(= value %))
+        (assoc db :todo-list))))
+
+(reg-event-db
  :set-greeting
  [validate-spec]
  (fn [db [_ value]]
